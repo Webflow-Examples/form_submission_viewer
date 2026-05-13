@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import { CLIENT_ID } from 'astro:env/server';
+const REDIRECT_URL = import.meta.env.REDIRECT_URL;
+
+const getAuthURL = () => {
+    const params = new URLSearchParams();
+    params.set('client_id', CLIENT_ID);
+    params.set('redirect_url', REDIRECT_URL);
+    params.set('response_type', 'code');
+    // forms:read + forms:write to list and delete submissions, sites:read for the picker.
+    params.set('scope', 'sites:read forms:read forms:write');
+    return 'https://webflow.com/oauth/authorize?' + params.toString();
+};
+
+const error = await Astro.session?.get('error');
+if (error) await Astro.session?.set('error', null);
+---
+
+<BaseLayout pageTitle="Form Submission Viewer">
+
+    <main class="page-narrow">
+        <div class="hero">
+            <h1>Form Submission Viewer</h1>
+            <p>
+                A simple way to browse and manage form submissions from your Webflow sites.
+                Connect your account, pick a site, and see every submission in one place.
+            </p>
+            <ul>
+                <li>Browse submissions sorted by date</li>
+                <li>Expand any row to see the full set of submitted values</li>
+                <li>Delete unwanted submissions with a single click</li>
+            </ul>
+
+            <a href={getAuthURL()} class="btn btn-block">
+                Login with Webflow
+            </a>
+
+            <div class="note">
+                You'll be redirected to Webflow to authorize access.<br/>
+                This tool requests read &amp; write access to sites and form submissions.
+            </div>
+
+            {error && (
+                <div class="note" style="color: var(--danger); margin-top: 12px;">
+                    Login error: {error}
+                </div>
+            )}
+        </div>
+    </main>
+
+</BaseLayout>

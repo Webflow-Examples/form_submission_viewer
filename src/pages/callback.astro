@@ -1,0 +1,38 @@
+---
+import { CLIENT_ID, CLIENT_SECRET } from 'astro:env/server';
+
+const code = Astro.url.searchParams.get('code') || '';
+const error = Astro.url.searchParams.get('error') || '';
+
+if (error !== '') {
+    console.error('OAuth error:', error);
+    await Astro.session?.set('error', error);
+    return Astro.redirect('/');
+}
+
+const params = new URLSearchParams();
+params.append('client_id', CLIENT_ID);
+params.append('client_secret', CLIENT_SECRET);
+params.append('grant_type', 'authorization_code');
+params.append('code', code);
+
+const atReq = await fetch('https://api.webflow.com/oauth/access_token', {
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: params
+});
+
+const at = await atReq.json();
+
+if (!at.access_token) {
+    console.error('Token exchange failed:', at);
+    await Astro.session?.set('error', at.error || 'token_exchange_failed');
+    return Astro.redirect('/');
+}
+
+await Astro.session?.set('access_token', at.access_token);
+return Astro.redirect('/dashboard');
+---

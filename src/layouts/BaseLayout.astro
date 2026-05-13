@@ -1,0 +1,78 @@
+---
+import '../css/styles.css';
+const { pageTitle, showTopbar = true } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+        // Apply theme BEFORE paint so there's no flash.
+        (function () {
+            try {
+                const stored = localStorage.getItem('theme');
+                if (stored === 'light' || stored === 'dark') {
+                    document.documentElement.setAttribute('data-theme', stored);
+                }
+            } catch (e) {}
+        })();
+    </script>
+</head>
+
+<body>
+    {showTopbar && (
+        <header class="topbar">
+            <a href="/" class="brand" style="text-decoration:none;color:inherit;">
+                <div class="brand-mark">F</div>
+                <div>
+                    <div class="brand-name">Form Submission Viewer</div>
+                    <div class="brand-sub">Webflow tools</div>
+                </div>
+            </a>
+            <div class="topbar-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+                    </svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+    )}
+
+    <slot/>
+
+    <div class="page-footer">Form Submission Viewer · v0.1</div>
+
+    <script is:inline>
+        (function () {
+            const toggle = document.getElementById('themeToggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', () => {
+                const root = document.documentElement;
+                const current = root.getAttribute('data-theme');
+                let next;
+                if (current === 'dark') next = 'light';
+                else if (current === 'light') next = 'dark';
+                else {
+                    // No explicit choice yet — flip away from system preference.
+                    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    next = systemDark ? 'light' : 'dark';
+                }
+                root.setAttribute('data-theme', next);
+                try { localStorage.setItem('theme', next); } catch (e) {}
+            });
+        })();
+    </script>
+</body>
+</html>
