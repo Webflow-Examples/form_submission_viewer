@@ -10,5 +10,4 @@ A small Astro app that lists and manages Webflow form submissions for a chosen s
 4. The OAuth app needs the `sites:read`, `forms:read`, and `forms:write` scopes.
 5. `npm run dev` and open http://localhost:4321
 
-
 Or hey, install via this link: <https://webflow.com/dashboard/cloud/deploy?repo=https://github.com/Webflow-Examples/form_submission_viewer>
