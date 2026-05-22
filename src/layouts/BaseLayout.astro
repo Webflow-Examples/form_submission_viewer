@@ -29,13 +29,13 @@ const { pageTitle, showTopbar = true } = Astro.props;
 <body>
     {showTopbar && (
         <header class="topbar">
-            <a href="/" class="brand" style="text-decoration:none;color:inherit;">
+            <div class="brand">
                 <div class="brand-mark">F</div>
                 <div>
                     <div class="brand-name">Form Submission Viewer</div>
                     <div class="brand-sub">Webflow tools</div>
                 </div>
-            </a>
+            </div>
             <div class="topbar-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
                     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +52,7 @@ const { pageTitle, showTopbar = true } = Astro.props;
 
     <slot/>
 
-    <div class="page-footer">Form Submission Viewer · v0.1</div>
+    <div class="page-footer">Form Submission Viewer · v0.2 · Made by <a href="https://www.raymondcamden.com" target="_blank">Raymond Camden</a></div>
 
     <script is:inline>
         (function () {
