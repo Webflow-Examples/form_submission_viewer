@@ -6,7 +6,9 @@ export async function onRequest(context, next) {
     path === "/" ||
     path === "/index.html" ||
     path.endsWith("/callback") ||
-    path.endsWith("/logout")
+    path.endsWith("/logout") ||
+    path.endsWith("/terms") ||
+    path.endsWith("/privacy")
   ) {
     return next();
   }

@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout pageTitle="Privacy Policy">
+
+<main class="page-narrow legal">
+    <h1>Privacy Policy</h1>
+    <p>Last Updated: May 22, 2026</p>
+
+    <p>This Privacy Policy describes how <strong>Form Submission Viewer</strong> ("we," "us," or "our") handles your information. Our commitment to your privacy is simple: we only use the data necessary to provide the service and we do not store your information.</p>
+
+    <h2>1. Information Collection and Access</h2>
+    <p>Our tool operates as a real-time viewer and does not maintain a permanent database of your form submissions. Information is handled as follows:</p>
+    <ul>
+        <li><strong>OAuth Authentication:</strong> You log in using an external provider. We receive an authentication token to access your data, but we never see or store your password.</li>
+        <li><strong>Data Retrieval:</strong> We fetch your form submissions via API for the sole purpose of displaying them to you. This data is processed in-memory and is not saved to our servers.</li>
+        <li><strong>Temporary Cookies:</strong> We use temporary session cookies strictly to manage your authenticated session. These are deleted when you log out or close your browser.</li>
+    </ul>
+
+    <h2>2. Data Storage and Retention</h2>
+    <p>We do not store, archive, or retain any of the form submission data retrieved through the application. Once your session is closed, the data is gone from our systems.</p>
+
+    <h2>3. Information Sharing</h2>
+    <p>We do not sell, trade, or otherwise transfer your personal information or form submission data to outside parties. Your data is never reused for any purpose other than providing the immediate "Viewer" service.</p>
+
+    <h2>4. Security</h2>
+    <p>We utilize industry-standard OAuth protocols to ensure secure access to your data without requiring your account credentials. We recommend logging out of the application when your session is complete.</p>
+
+    <h2>5. Changes to This Policy</h2>
+    <p>Any updates to this policy will be reflected on this page with an updated "Last Updated" date.</p>
+
+    <h2>6. Contact</h2>
+    <p>For questions regarding this policy, please email raymond.camden@webflow.com.</p>
+</main>
+
+<style>
+    .legal { max-width: 720px; }
+    .legal h1 { margin-bottom: 0.5rem; }
+    .legal h2 { margin-top: 1.75rem; margin-bottom: 0.5rem; }
+    .legal p, .legal ul { margin-bottom: 1rem; }
+    .legal ul { padding-left: 1.25rem; }
+    .legal li { margin-bottom: 0.25rem; }
+</style>
+
+</BaseLayout>
